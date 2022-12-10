@@ -28,11 +28,11 @@
 #include "touch.h"
 
 BUTTON_MSG_T B;
-TOUCH_MSG_T T;
+TOUCH_MSG_T recvMsg;
 int msgID;
 int fd;
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[]) {//
    
 	setInit(); //각종 기기들을 키고  초기 설정을 해준다.
 	bitmainfunc("gamestart.bmp"); //메인 메뉴 사진을 띄운다.

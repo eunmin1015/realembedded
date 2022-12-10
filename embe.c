@@ -59,7 +59,6 @@ int setInit(void){
     //온도에 맞는 안내메세지를 textlcd에 띄움
     
 	sleep(2);
-	baseballgame();
 	
 	return 0;
 }
