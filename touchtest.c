@@ -6,7 +6,7 @@ int main(void)
 {
     touchInit();
     int msgID = msgget (MESSAGE_ID, IPC_CREAT | 0666);
-       BUTTON_MSG_T recvMsg;
+      TOUCH_MSG_T recvMsg;
     while(1)
     {
         msgrcv(msgID, &recvMsg, sizeof(BUTTON_MSG_T)- sizeof(long int), 0, 0);
