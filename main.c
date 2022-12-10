@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
    
 	setInit(); //각종 기기들을 키고  초기 설정을 해준다.
 	bitmainfunc("gamestart.bmp"); //메인 메뉴 사진을 띄운다.
-    while(1);
+    while(1)
     {
 				        msgrcv(msgID, &recvMsg, sizeof(TOUCH_MSG_T)- sizeof(long int), 0, 0);
          printf("good1");
