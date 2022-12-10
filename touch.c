@@ -67,7 +67,7 @@ void *touchThFunc(void* args)
       int y=0;
       struct input_event stEvent;
        printf("TOUCH SCRREN  ready \r\n");
-    BUTTON_MSG_T sendMsg;
+    TOUCH_MSG_T sendMsg;
     sendMsg.messageNum = 1;
    sendMsg.keyInput = 999;
     
@@ -106,7 +106,7 @@ void *touchThFunc(void* args)
                                    
                                 
                               }
-                            msgsnd(msgID ,&sendMsg , sizeof(BUTTON_MSG_T) - sizeof(long int),0);
+                            msgsnd(msgID ,&sendMsg , sizeof(TOUCH_MSG_T) - sizeof(long int),0);
                         
 
                          
@@ -131,8 +131,8 @@ void *touchThFunc(void* args)
     //printf("trash id %d", msgID );
 
 
-    BUTTON_MSG_T trashCan;
-    while(msgrcv (msgID, &trashCan, sizeof(BUTTON_MSG_T) - sizeof(long int),0,IPC_NOWAIT) >= 0)
+    TOUCH_MSG_T trashCan;
+    while(msgrcv (msgID, &trashCan, sizeof(TOUCH_MSG_T) - sizeof(long int),0,IPC_NOWAIT) >= 0)
             { 
                printf("cleaning message" );
                 } 
