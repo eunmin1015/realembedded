@@ -38,7 +38,23 @@ int main(int argc, char* argv[]) {
 	bitmainfunc("gamestart.bmp"); //메인 메뉴 사진을 띄운다.
     while(1);
     {
-		
+				        msgrcv(msgID, &recvMsg, sizeof(TOUCH_MSG_T)- sizeof(long int), 0, 0);
+         printf("good1");
+        switch (recvMsg.keyInput)
+        {
+            case 999: // X 341 682 Y 200 400
+                    if(recvMsg.pressed==1)
+                { 
+                    if(0 <recvMsg.x < 1024 && 0<recvMsg.y <600)
+                    {
+						printf("good");
+						bitmainfunc("gamestart.bmp");
+                        baseballgame();
+                    }
+
+                }
+break;
+    }
 	}
 return 0;
 }
