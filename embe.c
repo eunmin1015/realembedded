@@ -18,6 +18,7 @@
 #include "fnd.h"
 #include "acc.h"
 #include "button.h"
+#include "touch.h"
 #include "buzzer.h"
 #include "textlcd.h"
 #include "colorled.h"
@@ -26,6 +27,7 @@
 #include "embe.h"
 
 BUTTON_MSG_T B;
+TOUCH_MSG_T recvMsg;
 int msgID;
 int fd;
 
@@ -77,12 +79,14 @@ int setExit(void){
 int baseballgame(void){
 	int fd;
 	int computerBall[3]; // 컴퓨터의 볼을 저장할 int형 배열 
-	int i, j; // 반복을 위한 변수 
+	int i, j, k; // 반복을 위한 변수 
 	int temp; // 난수 중복 체크를 위한 변수 
-	int userBall[3]; // 사용자의 볼을 저장할 int형 배열 
+	int userBall[3] = {0,}; // 사용자의 볼을 저장할 int형 배열 
 	int count = 1; // 회차를 확인할 변수 9회까지 가능 
 	int strike = 0; // 스트라이크의 수를 세기 위한 변수 
 	int ball = 0; // 볼의 수를 세기 위한 변수 
+	int cnt = 0;
+	
 	bitmainfunc("Baseball_Start1.bmp");
 	text("GAME START", "        ");
 	sleep(5);
@@ -98,21 +102,86 @@ int baseballgame(void){
 		}
 	}
 	
+   
+    msgrcv(msgID, &recvMsg, sizeof(TOUCH_MSG_T)- sizeof(long int), 0, 0);
+
+	
+	for(k = 0; k < 3; k ++){
+		        switch (recvMsg.keyInput)
+        {
+            case 999: 
+                    if(recvMsg.pressed==1)
+                { 
+                    if(730 < recvMsg.x && recvMsg.x  < 755 && 480<recvMsg.y && recvMsg.y<515)
+                    {
+						bitmainfunc("Keypad.bmp");
+                        userBall[k] = 0;
+                    }
+                    else if (555 < recvMsg.x && recvMsg.x  < 585 && 60<recvMsg.y && recvMsg.y<110)
+                    {
+						bitmainfunc("Keypad.bmp");
+						userBall[k] = 1;
+					}
+                    else if (715 < recvMsg.x && recvMsg.x  < 755 && 60<recvMsg.y && recvMsg.y<110)
+                    {
+						bitmainfunc("Keypad.bmp");
+						userBall[k] = 2;
+					}
+					else if (880 < recvMsg.x && recvMsg.x  < 920 && 60<recvMsg.y && recvMsg.y<110)
+                    {
+						bitmainfunc("Keypad.bmp");
+						userBall[k] = 3;
+					}
+                    else if (550 < recvMsg.x && recvMsg.x  < 590 && 200<recvMsg.y && recvMsg.y<240)
+                    {
+						bitmainfunc("Keypad.bmp");
+						userBall[k] = 4;
+					}
+                    else if (720 < recvMsg.x && recvMsg.x  < 750 && 200<recvMsg.y && recvMsg.y<240)
+                    {
+						bitmainfunc("Keypad.bmp");
+						userBall[k] = 5;
+					}
+                    else if (895 < recvMsg.x && recvMsg.x  < 945 && 200<recvMsg.y && recvMsg.y<240)
+                    {
+						bitmainfunc("Keypad.bmp");
+						userBall[k] = 6;
+					}
+                    else if (555 < recvMsg.x && recvMsg.x  < 585 && 330<recvMsg.y && recvMsg.y<370)
+                    {
+						bitmainfunc("Keypad.bmp");
+						userBall[k] = 7;
+					}
+                    else if (720 < recvMsg.x && recvMsg.x  < 790 && 330<recvMsg.y && recvMsg.y<370)
+                    {
+						bitmainfunc("Keypad.bmp");
+						userBall[k] = 8;
+					}
+					else if (880 < recvMsg.x && recvMsg.x  < 950 && 330<recvMsg.y && recvMsg.y<370)
+                    {
+						bitmainfunc("Keypad.bmp");
+						userBall[k] = 9;
+					}
+                    
+                }
+break;
+    }
+}
+	
 	while (1) // 숫자야구 게임 시작 
 
-  	{ 
+  	{ 	bitmainfunc("Keypad.bmp");
 		text("inning start!", "   ");	
     	printf("[%d회차 숫자야구]\n", count); 
     	ledonoff(count-1,1);
-    	bitmainfunc("Keypad.bmp");
+		printf("computer num -> %d,%d,%d\n",computerBall[0],computerBall[1],computerBall[2]);
+		
     	
     	while(1)
     	{
-    	
-		printf("computer num -> %d,%d,%d\n",computerBall[0],computerBall[1],computerBall[2]);
-		scanf("%d %d %d",&userBall[0],&userBall[1],&userBall[2]);
-		printf("insert num -> %d,%d,%d\n",userBall[0],userBall[1],userBall[2]);
-		text("inning start!", "insert num");
+			text("inning start!", "insert num");
+			
+	printf("저장된 숫자 %d %d %d", userBall[0],userBall[1],userBall[2]);
 	
 	if(userBall[0] < 1 || userBall[0] > 9 || userBall[1] < 1 || userBall[1] > 9 || userBall[2] < 1 || userBall[2] > 9) 
 

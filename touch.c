@@ -69,7 +69,7 @@ void *touchThFunc(void* args)
        printf("TOUCH SCRREN  ready \r\n");
     TOUCH_MSG_T sendMsg;
     sendMsg.messageNum = 1;
-   sendMsg.keyInput = 999;
+   sendMsg.keyInput = 999;//
     
 	while(1)
 	{ 
@@ -79,12 +79,12 @@ void *touchThFunc(void* args)
                     { 
                             if(stEvent.code == ABS_MT_POSITION_X){
                                           x = stEvent.value ;              
-                                       //printf("touch x: %d\r\n",stEvent.value);
+                                       printf("touch x: %d\r\n",stEvent.value);
                                            }
                               else if (stEvent.code ==ABS_MT_POSITION_Y)
                                     {
                                           y= stEvent.value;
-                                      //  printf("touch y: %d\r\n",stEvent.value);
+                                        printf("touch y: %d\r\n",stEvent.value);
                                     }
                     }
 

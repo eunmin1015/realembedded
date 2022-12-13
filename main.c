@@ -38,20 +38,19 @@ int main(int argc, char* argv[]) {//
 	bitmainfunc("gamestart.bmp"); //메인 메뉴 사진을 띄운다.
     while(1)
     {
-				        msgrcv(msgID, &recvMsg, sizeof(TOUCH_MSG_T)- sizeof(long int), 0, 0);
-         printf("good1");
+		msgrcv(msgID, &recvMsg, sizeof(TOUCH_MSG_T)- sizeof(long int), 0, 0);
+         
         switch (recvMsg.keyInput)
         {
-            case 999: // X 341 682 Y 200 400
+            case 999: // X 341 682 Y 200 400/
                     if(recvMsg.pressed==1)
                 { 
-                    if(0 <recvMsg.x < 1024 && 0<recvMsg.y <600)
+                    if(450 < recvMsg.x && recvMsg.x  < 520 && 200<recvMsg.y && recvMsg.y<430)
                     {
-						printf("good");
 						bitmainfunc("gamestart.bmp");
                         baseballgame();
                     }
-
+                    
                 }
 break;
     }
