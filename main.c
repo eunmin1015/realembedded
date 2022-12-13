@@ -50,7 +50,11 @@ int main(int argc, char* argv[]) {//
 						bitmainfunc("gamestart.bmp");
                         baseballgame();
                     }
-                    
+                      if(530 <recvMsg.x && recvMsg.x < 1024 && 200 <recvMsg.y && recvMsg.y < 430)
+                    {
+                          bitmainfunc("gamestart.bmp");
+                        soccergame();
+                    }
                 }
 break;
     }

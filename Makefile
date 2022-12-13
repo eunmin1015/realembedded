@@ -2,7 +2,6 @@ all: project
 
 project : libMyPeri.a main.c
 	arm-linux-gnueabi-gcc main.c  -l MyPeri -L. -o project -lpthread
-	scp ./project ecube@192.168.111.22:/home/ecube
 libMyPeri.a : button.o led.o buzzer.o fnd.o colorled.o Temperature.o acc.o textlcd.o bitmap.o touch.o embe.o
 	arm-linux-gnueabi-ar rc libMyPeri.a led.o button.o buzzer.o fnd.o colorled.o Temperature.o acc.o textlcd.o bitmap.o touch.o embe.o
 bitmap.o : bitmap.c bitmap.h

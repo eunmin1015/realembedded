@@ -287,10 +287,10 @@ int select_ball_func (void)
     while(1){
 	accInit(); // 가속도 센서 활성화 
     
-	getACC(); // 가속도 값 1초에 한 번씩 받아오기
+	getAcc(); // 가속도 값 1초에 한 번씩 받아오기
 	
 	int *accel;
-	int ball_num = 0; // 사용자가 선택한 장소에 따라 번호 메기기
+	int ball_num ; // 사용자가 선택한 장소에 따라 번호 메기기
 	
 	BUTTON_MSG_T B;
 	int returnValue = 0;
@@ -319,11 +319,12 @@ int select_ball_func (void)
 		}
 		else if (accel >= 10000)
 		{
-			bitaminfunc("soccerball_right.bmp");
+			bitmainfunc("soccerball_right.bmp");
 			ball_num = 3;
 		}
 	}
 	}
+    int ball_num;
 	return ball_num; // 공 번호 반환해 주기
 
 }
