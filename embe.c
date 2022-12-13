@@ -281,12 +281,15 @@ break;
 이 함수를 부르면 공의 최종 위치가 정수형으로 반환됨.
 
 ------------------------------------------------------------------*/
-/*
+
 int select_ball_func (void)
-{	 
+{	
+    while(1){
 	accInit(); // 가속도 센서 활성화 
-    getACC(); // 가속도 값 1초에 한 번씩 받아오기
+    
+	getACC(); // 가속도 값 1초에 한 번씩 받아오기
 	
+	int *accel;
 	int ball_num = 0; // 사용자가 선택한 장소에 따라 번호 메기기
 	
 	BUTTON_MSG_T B;
@@ -302,74 +305,78 @@ int select_ball_func (void)
 	
 	returnValue = msgrcv(msgID, &B, sizeof(unsigned short)*2 + sizeof(int), 0, 0);
 	
-	while (B.messageNum == EV_KEY && B.keyInput == KEY_VOLUME_DOWN && B.pressed) // 버튼이 눌릴 동안 동작
+	while (B.messageNum == EV_KEY && B.keyInput == KEY_VOLUMEDOWN && B.pressed) // 버튼이 눌릴 동안 동작
 	{	
-		if(accel[0]<왼쪽 && accel[2]<왼쪽 && accel[2]<왼쪽)
+		if(accel <= -10000)
 		{
-			bitmainfunc("ballleft.bmp");
+			bitmainfunc("soccerball_left.bmp");
 			ball_num = 1;
 		}
-		else if(키트가 그대로 움직이면)
+		else if(accel >= -10000 && accel <= 10000)
 		{
-			bitmainfunc("ballcenter.bmp");
+			bitmainfunc("soccerball_center.bmp");
 			ball_num = 2;
 		}
-		else(키트가 오른쪽으로 움직이면
+		else if (accel >= 10000)
 		{
-			bitaminfunc("ballright.bmp")
+			bitaminfunc("soccerball_right.bmp");
 			ball_num = 3;
 		}
 	}
-	
+	}
 	return ball_num; // 공 번호 반환해 주기
 
 }
 
+
+
 int soccergame(void)
 {    	
-	bitmainfunc("축구사진.bmp");
+	bitmainfunc("soccer_start.bmp");
 	text("GAME START", "	");
+
+	int i;
 
 	for(i=0; i<3; i++) // 3판 돌리기
 	{ 
 	 /*----------------------------- 사용자의 최종 위치 받아오기 ---------------------- */
-		//int player_num; // 리턴 받을 사용자의 장소 번호
+		int player_num; // 리턴 받을 사용자의 장소 번호
 
-		//player_num = select_ball_func(); // 사용자의 장소 최종 위치 불러오기
+		player_num = select_ball_func(); // 사용자의 장소 최종 위치 불러오기
     
 	 /*--------------------------- 랜덤한 위치 받아오기 -------------------- */
-		//int rand_num; // 랜덤하게 받아올 숫자
-		//srand(time(NULL)) 
+		int rand_num; // 랜덤하게 받아올 숫자
+		srand(time(NULL)) ;
 	
-		//rand_num =rand() % 3 + 1; // 1, 2, 3 중 랜덤한 값을 무작위로 받아와서 저장하기
+		rand_num =rand() % 3 + 1; // 1, 2, 3 중 랜덤한 값을 무작위로 받아와서 저장하기
 
 	 /*---------------------------------점수 조정하기-----------------------------------*/
-		//int soccerscore = 0; // 점수를 저장하는 변수	
+		int soccerscore = 0; // 점수를 저장하는 변수	
 
-		//if (rand_num == player_num) // 게임 결과 비교 (승)
-		//{
-		//	fndDisp (soccerscore + 1, 0); 
-		//	soccerscore = soccerscore + 1;
-		//}
+		if (rand_num == player_num) // 게임 결과 비교 (승)
+		{
+			fndDisp (soccerscore + 1, 0); 
+			soccerscore = soccerscore + 1;
+		}
 
-		//else if (rand_num != player_num) // 패
-		//{	
-			//if (soccerscore >= 1) // 1점 이상 획득했을 때
-		//	{
-			//	fndDisp (soccerscore -1, 0);
-			//	soccerscore = soccerscore - 1;
-		//	}
+		else if (rand_num != player_num) // 패
+		{	
+			if (soccerscore >= 1) // 1점 이상 획득했을 때
+			{
+				fndDisp (soccerscore -1, 0);
+				soccerscore = soccerscore - 1;
+		}
 
-			//else if (soccerscore < 1) // 0점일 때 음수로 가는 것을 방지
-			//{
-			//	fndDisp (0, 0);
-			//	soccerscore = 0;
-		//	}
-	//	}	
+		else if (soccerscore < 1) // 0점일 때 음수로 가는 것을 방지
+		{
+			fndDisp (0, 0);
+			soccerscore = 0;
+		}
+	}	
 
-//	}
+}
 	
 
-	//text("Finish","	");
-//	return 0;
-//}
+	text("Finish","	");
+	return 0;
+}
