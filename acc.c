@@ -40,12 +40,13 @@ int* getAcc(void){
 	fp = fopen (ACCELPATH "data", "rt");
 
 	int accel[3];
-
+    int *a;
 	fscanf(fp,"%d, %d, %d",&accel[0],&accel[1],&accel[2]);
 	printf ("I read Accel %d, %d, %d\r\n",accel[0],accel[1],accel[2]);
 	fclose(fp);
 	
-	return accel;
+    a = &accel[1];
+	return a;
 
 }
 	
