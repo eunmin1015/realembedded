@@ -53,7 +53,7 @@ int main(int argc, char* argv[]) {//
                       if(530 <recvMsg.x && recvMsg.x < 1024 && 200 <recvMsg.y && recvMsg.y < 430)
                     {
                           bitmainfunc("gamestart.bmp");
-                        soccergame();
+                        select_ball_func();
                     }
                 }
 break;

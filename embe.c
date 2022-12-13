@@ -284,12 +284,9 @@ break;
 
 int select_ball_func (void)
 {	
-    while(1){
+   
 	accInit(); // 가속도 센서 활성화 
-    
-	getAcc(); // 가속도 값 1초에 한 번씩 받아오기
-	
-	int *accel;
+    int *accel;
 	int ball_num ; // 사용자가 선택한 장소에 따라 번호 메기기
 	
 	BUTTON_MSG_T B;
@@ -304,27 +301,37 @@ int select_ball_func (void)
 	buttonInit();
 	
 	returnValue = msgrcv(msgID, &B, sizeof(unsigned short)*2 + sizeof(int), 0, 0);
-	
-	while (B.messageNum == EV_KEY && B.keyInput == KEY_VOLUMEDOWN && B.pressed) // 버튼이 눌릴 동안 동작
-	{	
-		if(accel <= -10000)
-		{
+	    while(1){
+	*accel = getAcc(); // 가속도 값 1초에 한 번씩 받아오기
+	//while (B.messageNum == EV_KEY && B.keyInput == KEY_VOLUMEDOWN && B.pressed) // 버튼이 눌릴 동안 동작
+	//{	
+        
+        printf("%d\n", *accel);
+        sleep(1);
+		/*if(*accel <= -10000)
+		{   
 			bitmainfunc("soccerball_left.bmp");
+           printf(" accel : %d", accel);
 			ball_num = 1;
+          sleep(1);
 		}
-		else if(accel >= -10000 && accel <= 10000)
+		else if(*accel >= -10000 && *accel <= 10000)
 		{
 			bitmainfunc("soccerball_center.bmp");
+            printf(" accel : %d", accel);
 			ball_num = 2;
+        sleep(1);
 		}
-		else if (accel >= 10000)
+		else if (*accel >= 10000)
 		{
 			bitmainfunc("soccerball_right.bmp");
+            printf(" accel : %d", accel);
 			ball_num = 3;
-		}
+            sleep(1);
+		}*/
+        
+	//}
 	}
-	}
-    int ball_num;
 	return ball_num; // 공 번호 반환해 주기
 
 }
