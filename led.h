@@ -3,7 +3,7 @@
 
 int ledlibinit(void);
 int ledonoff(int lednum, int onoff);
-int ledallof(void);
+int ledalloff(void);
 int led0s1b(void);
 int led0s2b(void);
 int led0s3b(void);
