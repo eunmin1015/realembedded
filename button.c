@@ -15,7 +15,7 @@
 #define HAVE_TO_FIND_2 "H: Handlers=kbd event"
 
 BUTTON_MSG_T A;
-int msgID, fd;
+int msgID2, fd;
 char buttonPath[200] = {0,};
 pthread_t buttonTh_id;
 
@@ -26,9 +26,9 @@ int probeButtonPath(char *newPath){
 	while(!feof(fp)) {
 	char tmpStr[200]; //200자를 읽을 수 있게 버퍼
 	fgets(tmpStr,200,fp); //최대 200자를 읽어봄
-	//printf ("%s",tmpStr);
+	printf ("%s",tmpStr);
 	if (strcmp(tmpStr,HAVE_TO_FIND_1) == 0){
-		//printf("YES! I found!: %s\r\n", tmpStr);
+		printf("YES! I found!: %s\r\n", tmpStr);
 		returnValue = 1; //찾음
 	}
 	
@@ -66,7 +66,7 @@ void buttonThFunc(void)
 	A.messageNum = stEvent.type;
 	A.pressed = stEvent.value;
 	
-	msgsnd(msgID,&A, sizeof(unsigned short) *2 + sizeof(int) , 0);
+	msgsnd(msgID2,&A, sizeof(unsigned short) *2 + sizeof(int) , 0);
 	}
 
 }
@@ -76,7 +76,7 @@ int buttonInit(void){
 	if (probeButtonPath(buttonPath) == 0)
 	return 0;
 	fd=open (buttonPath, O_RDONLY);
-    msgID = msgget (MESSAGE_ID, IPC_CREAT|0666);
+    msgID2 = msgget (MESSAGE_ID, IPC_CREAT|0666);
     pthread_create(&buttonTh_id, NULL, buttonThFunc, NULL);
     A.messageNum = 1;
 	return 1;

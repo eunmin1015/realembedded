@@ -35,7 +35,7 @@ int gyroInit(void){
 	return 0;
 }
 	
-int* getAcc(void){
+int getAcc(void){
 
 	fp = fopen (ACCELPATH "data", "rt");
 
@@ -45,7 +45,7 @@ int* getAcc(void){
 	printf ("I read Accel %d, %d, %d\r\n",accel[0],accel[1],accel[2]);
 	fclose(fp);
 	
-    a = &accel[1];
+    a = accel[1];
 	return a;
 
 }
