@@ -34,7 +34,7 @@ int userBall[3] = {0,}; // 사용자의 볼을 저장할 int형 배열
 
 int setInit(void){
 	
-	bitmainfunc("STart.bmp");
+	bitmainfunc("set.bmp");
 	
     pwmLedInit();
 	ledlibinit();
@@ -128,7 +128,7 @@ int userballinsert(void)
 						cnt++;
 						continue;
                     }
-                    else if((320 < recvMsg.x )&& (recvMsg.x  < 671) && (0<recvMsg.y )&& (recvMsg.y<200) && statement1 != 1)
+                    else if((320 < recvMsg.x )&& (recvMsg.x  < 671) && (0<recvMsg.y )&& (recvMsg.y<200) && statement1 != 1) //2
                      {
 						printf("입력완료");
 						bitmainfunc("Keypad2.bmp");
@@ -136,7 +136,7 @@ int userballinsert(void)
 						cnt++;
 						continue;
 					}
-                    else if ((671 < recvMsg.x) && (recvMsg.x  < 1024) && (0<recvMsg.y) && (recvMsg.y<200) && statement2!=1)
+                    else if ((671 < recvMsg.x) && (recvMsg.x  < 1024) && (0<recvMsg.y) && (recvMsg.y<200) && statement2!=1) //3
                     {
 						printf("입력완료");
 						bitmainfunc("Keypad2.bmp");
@@ -144,7 +144,7 @@ int userballinsert(void)
 						cnt++;
 						continue;
 					}
-					else if ((0 < recvMsg.x) && (recvMsg.x  < 320) && (200<recvMsg.y )&& (recvMsg.y<400) && statement3!=1)
+					else if ((0 < recvMsg.x) && (recvMsg.x  < 320) && (200<recvMsg.y )&& (recvMsg.y<400) && statement3!=1) //4
                     {
 						printf("입력완료");
 						bitmainfunc("Keypad2.bmp");
@@ -152,7 +152,7 @@ int userballinsert(void)
 						cnt++;
 						continue;
 					}
-                    else if ((320 < recvMsg.x )&& (recvMsg.x  < 671) && (200<recvMsg.y) && (recvMsg.y<400) && statement4!=1)
+                    else if ((320 < recvMsg.x )&& (recvMsg.x  < 671) && (200<recvMsg.y) && (recvMsg.y<400) && statement4!=1) //5
                     {
 						printf("입력완료");
 						bitmainfunc("Keypad2.bmp");
@@ -160,7 +160,7 @@ int userballinsert(void)
 						cnt++;
 						continue;
 					}
-                    else if ((671 < recvMsg.x) && (recvMsg.x  < 1024)&& (200<recvMsg.y) && (recvMsg.y<400) )
+                    else if ((671 < recvMsg.x) && (recvMsg.x  < 1024)&& (200<recvMsg.y) && (recvMsg.y<400) ) //6
                     {
 						printf("입력완료");
 						bitmainfunc("Keypad2.bmp");
@@ -168,7 +168,7 @@ int userballinsert(void)
 						cnt++;
 						continue;
 					}
-                    else if ((0 < recvMsg.x) && (recvMsg.x  < 320) && (400<recvMsg.y )&& (recvMsg.y<600) &&statement6!=1)
+                    else if ((0 < recvMsg.x) && (recvMsg.x  < 320) && (400<recvMsg.y )&& (recvMsg.y<600) &&statement6!=1) //7
                     {
 						printf("입력완료");
 						bitmainfunc("Keypad2.bmp");
@@ -176,7 +176,7 @@ int userballinsert(void)
 						cnt++;
 						continue;
 					}
-                    else if ((320 < recvMsg.x )&& (recvMsg.x  < 671)&& (400<recvMsg.y) && (recvMsg.y<600) && statement7!=1)
+                    else if ((320 < recvMsg.x )&& (recvMsg.x  < 671)&& (400<recvMsg.y) && (recvMsg.y<600) && statement7!=1)  //8
                     {
 						printf("입력완료");
 						bitmainfunc("Keypad2.bmp");
@@ -184,7 +184,7 @@ int userballinsert(void)
 						cnt++;
 						continue;
 					}
-                    else if ((671 < recvMsg.x) && (recvMsg.x  < 1024) && (400<recvMsg.y) && (recvMsg.y<600) &&statement8!=1)
+                    else if ((671 < recvMsg.x) && (recvMsg.x  < 1024) && (400<recvMsg.y) && (recvMsg.y<600) &&statement8!=1)  //9
                     {
 						printf("입력완료");
 						bitmainfunc("Keypad2.bmp");
