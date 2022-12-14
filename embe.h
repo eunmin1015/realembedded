@@ -11,6 +11,8 @@ typedef struct{
 } hourAndMinute; //카운트 업과 카운트 다운에 필요한 시간과 날짜를 저장해주기 위해서 만든 구조체
 
 int select_ball_func (void);
+int userballinsert (void);
+int userBallarrinput(int a);
 int soccergame(void);
 int baseballgame(void);
 int setInit(void);

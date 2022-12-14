@@ -30,6 +30,7 @@ BUTTON_MSG_T B;
 TOUCH_MSG_T recvMsg;
 int msgID;
 int fd;
+int userBall[3] = {0,}; // 사용자의 볼을 저장할 int형 배열 
 
 int setInit(void){
 	
@@ -75,13 +76,136 @@ int setExit(void){
 
 		
 }
+int userBallarrinput(int a)
+{
+	if(userBall[0] == 0)
+	{
+		userBall[0] = a;
+	}
+	else if (userBall[0] != 0 && userBall[1] == 0)
+	{
+		userBall[1] = a;
+	}
+	else if(userBall[0] != 0 && userBall[1] != 0 && userBall[2] == 0)
+	{
+		userBall[2] = a;
+	}
+	else
+	{
+		printf("입력이 완료되었습니다");
+		printf("배열 -> %d %d %d",userBall[0],userBall[1],userBall[2]);
+		return 1;
+	}
+}
+
+
+int userballinsert(void)
+{
+		int statement0 =0;
+		int statement1 =0;
+		int statement2 =0;
+		int statement3 =0;
+		int statement4 =0;
+		int statement5 =0;
+		int statement6 =0;
+		int statement7 =0;
+		int statement8 =0;
+		int statement9 =0;
+		int cnt = 0;
+	
+	while(1){
+		  msgrcv(msgID, &recvMsg, sizeof(TOUCH_MSG_T)- sizeof(long int), 0, 0);
+		        switch (recvMsg.keyInput)
+        {
+            case 999: 
+                    if(recvMsg.pressed==1)
+                { 
+                    if((0 < recvMsg.x) && (recvMsg.x  < 320) && (0<recvMsg.y) && (recvMsg.y<200) && statement0!=1)  //1
+					{
+						printf("입력완료");
+						bitmainfunc("Keypad2.bmp");
+						userBallarrinput(1);
+						cnt++;
+						continue;
+                    }
+                    else if((320 < recvMsg.x )&& (recvMsg.x  < 671) && (0<recvMsg.y )&& (recvMsg.y<200) && statement1 != 1)
+                     {
+						printf("입력완료");
+						bitmainfunc("Keypad2.bmp");
+						userBallarrinput(2);
+						cnt++;
+						continue;
+					}
+                    else if ((671 < recvMsg.x) && (recvMsg.x  < 1024) && (0<recvMsg.y) && (recvMsg.y<200) && statement2!=1)
+                    {
+						printf("입력완료");
+						bitmainfunc("Keypad2.bmp");
+						userBallarrinput(3);
+						cnt++;
+						continue;
+					}
+					else if ((0 < recvMsg.x) && (recvMsg.x  < 320) && (200<recvMsg.y )&& (recvMsg.y<400) && statement3!=1)
+                    {
+						printf("입력완료");
+						bitmainfunc("Keypad2.bmp");
+						userBallarrinput(4);
+						cnt++;
+						continue;
+					}
+                    else if ((320 < recvMsg.x )&& (recvMsg.x  < 671) && (200<recvMsg.y) && (recvMsg.y<400) && statement4!=1)
+                    {
+						printf("입력완료");
+						bitmainfunc("Keypad2.bmp");
+						userBallarrinput(5);
+						cnt++;
+						continue;
+					}
+                    else if ((671 < recvMsg.x) && (recvMsg.x  < 1024)&& (200<recvMsg.y) && (recvMsg.y<400) )
+                    {
+						printf("입력완료");
+						bitmainfunc("Keypad2.bmp");
+						userBallarrinput(6);
+						cnt++;
+						continue;
+					}
+                    else if ((0 < recvMsg.x) && (recvMsg.x  < 320) && (400<recvMsg.y )&& (recvMsg.y<600) &&statement6!=1)
+                    {
+						printf("입력완료");
+						bitmainfunc("Keypad2.bmp");
+						userBallarrinput(7);
+						cnt++;
+						continue;
+					}
+                    else if ((320 < recvMsg.x )&& (recvMsg.x  < 671)&& (400<recvMsg.y) && (recvMsg.y<600) && statement7!=1)
+                    {
+						printf("입력완료");
+						bitmainfunc("Keypad2.bmp");
+						userBallarrinput(8);
+						cnt++;
+						continue;
+					}
+                    else if ((671 < recvMsg.x) && (recvMsg.x  < 1024) && (400<recvMsg.y) && (recvMsg.y<600) &&statement8!=1)
+                    {
+						printf("입력완료");
+						bitmainfunc("Keypad2.bmp");
+						userBallarrinput(9);
+						cnt++;
+						continue;
+					}
+				
+break;
+    }
+    	if(cnt == 3)
+    	return 0;
+}
+}
+}
 
 int baseballgame(void){
 	int fd;
 	int computerBall[3]; // 컴퓨터의 볼을 저장할 int형 배열 
 	int i, j, k; // 반복을 위한 변수 
 	int temp; // 난수 중복 체크를 위한 변수 
-	int userBall[3] = {0,}; // 사용자의 볼을 저장할 int형 배열 
 	int count = 1; // 회차를 확인할 변수 9회까지 가능 
 	int strike = 0; // 스트라이크의 수를 세기 위한 변수 
 	int ball = 0; // 볼의 수를 세기 위한 변수 
@@ -102,216 +226,17 @@ int baseballgame(void){
 		}
 	}
 	
-		int statement0 =0;
-		int statement1 =0;
-		int statement2 =0;
-		int statement3 =0;
-		int statement4 =0;
-		int statement5 =0;
-		int statement6 =0;
-		int statement7 =0;
-		int statement8 =0;
-		int statement9 =0;
 		
-
-
-
-
-
-
-
-   
-    msgrcv(msgID, &recvMsg, sizeof(TOUCH_MSG_T)- sizeof(long int), 0, 0);
-
-	
-	for(k = 0; k < 3; k ++){
-		        switch (recvMsg.keyInput)
-        {
-            case 999: 
-                    if(recvMsg.pressed==1)
-                { 
-                    if((730 < recvMsg.x) && (recvMsg.x  < 755) && (480<recvMsg.y) && (recvMsg.y<515) && statement0!=1)
-                    {
-
-						int statement0 =1;
-	        			int statement1 =0;
-						int statement2 =0;
-						int statement3 =0;
-						int statement4 =0;
-						int statement5 =0;
-						int statement6 =0;
-						int statement7 =0;
-						int statement8 =0;
-						int statement9 =0;
-
-						bitmainfunc("Keypad.bmp");
-                        userBall[k] = 0;
-                    }
-                    else if ((555 < recvMsg.x) && (recvMsg.x  < 585) && (60<recvMsg.y) && (recvMsg.y<110) && statement1!=1)
-                     {
-						int statement0 =0;
-	        			int statement1 =1;
-						int statement2 =0;
-						int statement3 =0;
-						int statement4 =0;
-						int statement5 =0;
-						int statement6 =0;
-						int statement7 =0;
-						int statement8 =0;
-						int statement9 =0;
-
-						bitmainfunc("Keypad.bmp");
-						userBall[k] = 1;
-					}
-                    else if ((715 < recvMsg.x) && (recvMsg.x  < 755) && (60<recvMsg.y) && (recvMsg.y<110) && statement2!=1)
-                    {
-
-						int statement0 =0;
-	        			int statement1 =0;
-						int statement2 =1;
-						int statement3 =0;
-						int statement4 =0;
-						int statement5 =0;
-						int statement6 =0;
-						int statement7 =0;
-						int statement8 =0;
-						int statement9 =0;
-
-
-						bitmainfunc("Keypad.bmp");
-						userBall[k] = 2;
-					}
-					else if ((880 < recvMsg.x) &&( recvMsg.x  < 920) && (60<recvMsg.y )&& (recvMsg.y<110) && statement3!=1)
-                    {
-						int statement0 =0;
-	        			int statement1 =0;
-						int statement2 =0;
-						int statement3 =1;
-						int statement4 =0;
-						int statement5 =0;
-						int statement6 =0;
-						int statement7 =0;
-						int statement8 =0;
-						int statement9 =0;
-
-						bitmainfunc("Keypad.bmp");
-						userBall[k] = 3;
-					}
-                    else if ((550 < recvMsg.x) && (recvMsg.x  < 590) && (200<recvMsg.y) && (recvMsg.y<240) && statement4!=1)
-                    {
-
-						int statement0 =0;
-	        			int statement1 =0;
-						int statement2 =0;
-						int statement3 =0;
-						int statement4 =1;
-						int statement5 =0;
-						int statement6 =0;
-						int statement7 =0;
-						int statement8 =0;
-						int statement9 =0;
-
-						bitmainfunc("Keypad.bmp");
-						userBall[k] = 4;
-					}
-                    else if ((720 < recvMsg.x) && (recvMsg.x  < 750) && (200<recvMsg.y) && (recvMsg.y<240) && statement5 !=1)
-                    {
-
-						int statement0 =0;
-	        			int statement1 =0;
-						int statement2 =0;
-						int statement3 =1;
-						int statement4 =0;
-						int statement5 =1;
-						int statement6 =0;
-						int statement7 =0;
-						int statement8 =0;
-						int statement9 =0;						
-						bitmainfunc("Keypad.bmp");
-						userBall[k] = 5;
-					}
-                    else if ((895 < recvMsg.x) &&( recvMsg.x  < 945) && (200<recvMsg.y )&& (recvMsg.y<240) &&statement6!=1)
-                    {
-
-						int statement0 =0;
-	        			int statement1 =0;
-						int statement2 =0;
-						int statement3 =0;
-						int statement4 =0;
-						int statement5 =0;
-						int statement6 =1;
-						int statement7 =0;
-						int statement8 =0;
-						int statement9 =0;	
-
-						bitmainfunc("Keypad.bmp");
-						userBall[k] = 6;
-					}
-                    else if ((555 < recvMsg.x) && (recvMsg.x  < 585) && (330<recvMsg.y) && (recvMsg.y<370) && statement7!=1)
-                    {
-
-						int statement0 =0;
-	        			int statement1 =0;
-						int statement2 =0;
-						int statement3 =0;
-						int statement4 =0;
-						int statement5 =0;
-						int statement6 =0;
-						int statement7 =1;
-						int statement8 =0;
-						int statement9 =0;
-
-						bitmainfunc("Keypad.bmp");
-						userBall[k] = 7;
-					}
-                    else if ((720 < recvMsg.x) && (recvMsg.x  < 790) && (330<recvMsg.y) && (recvMsg.y<370) &&statement8!=1)
-                    {
-
-						int statement0 =0;
-	        			int statement1 =0;
-						int statement2 =0;
-						int statement3 =0;
-						int statement4 =0;
-						int statement5 =0;
-						int statement6 =0;
-						int statement7 =0;
-						int statement8 =1;
-						int statement9 =0;
-
-						bitmainfunc("Keypad.bmp");
-						userBall[k] = 8;
-					}
-					else if ((880 < recvMsg.x ) && (recvMsg.x  < 950) && (330<recvMsg.y) && (recvMsg.y<370) &&statement9!=1)
-                    {
-						int statement0 =0;
-	        			int statement1 =0;
-						int statement2 =0;
-						int statement3 =0;
-						int statement4 =0;
-						int statement5 =0;
-						int statement6 =0;
-						int statement7 =0;
-						int statement8 =0;
-						int statement9 =1;
-
-						bitmainfunc("Keypad.bmp");
-						userBall[k] = 9;
-					}
-                    //else범위 아무것도 아니면 그냥 현재 상태 유지해라.
-                }
-break;
-    }
-}
-	
 	while (1) // 숫자야구 게임 시작 
 
-  	{ 	bitmainfunc("Keypad.bmp");
+  	{ 	bitmainfunc("Keypad2.bmp");
 		text("inning start!", "   ");	
     	printf("[%d회차 숫자야구]\n", count); 
     	ledonoff(count-1,1);
 		printf("computer num -> %d,%d,%d\n",computerBall[0],computerBall[1],computerBall[2]);
 		
-    	
+		userballinsert();
+    	printf("user num -> %d,%d,%d\n",userBall[0],userBall[1],userBall[2]);
     	while(1)
     	{
 			text("inning start!", "insert num");
@@ -370,7 +295,7 @@ if(strike == 3) // 만약 스트라이크 개수가 3개이면 승리
 				pwmSetPercent(0,1);
 				pwmSetPercent(0,2);
 				usleep(500000);
-			buzzerPlaySong(musicScale[7]);
+			buzzerPlaySong(musicScale[5]);
 				pwmSetPercent(0,0);
 				pwmSetPercent(100,1);
 				pwmSetPercent(100,2);
@@ -385,6 +310,11 @@ if(strike == 3) // 만약 스트라이크 개수가 3개이면 승리
 				pwmSetPercent(100,2);
 
 printf("***** 승리했습니다. *****\n\n"); 
+//userBall[0] = 0;
+//userBall[1] = 0;
+//userBall[2] = 0;
+
+
 
 break; 
 
@@ -398,7 +328,10 @@ printf("***** 패배했습니다.. 정답 : %d %d %d *****\n\n", computerBall[0]
 
 break; 
 
-} 
+}
+
+bitmainfunc("baseball_yesno.bmp"); 
+
 
       count++; 
 }
@@ -523,3 +456,10 @@ int soccergame(void)
 	text("Finish","	");
 	return 0;
 }
+
+
+
+/*   
+
+      
+*/	
