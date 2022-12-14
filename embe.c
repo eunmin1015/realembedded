@@ -100,7 +100,7 @@ int backtothemain(void)
                       if(512 <recvMsg.x && recvMsg.x < 1024 && 300 <recvMsg.y && recvMsg.y < 500)
                     {
                           bitmainfunc("24set.bmp");
-                        select_ball_func();
+                        soccergame();
                     }
                 }
 break;
@@ -497,6 +497,34 @@ bitmainfunc("baseball_yesno.bmp");
 }
 
 
+int soccerballrestart(void)
+{
+	
+	    while(1)
+    {
+		msgrcv(msgID, &recvMsg, sizeof(TOUCH_MSG_T)- sizeof(long int), 0, 0);
+         
+        switch (recvMsg.keyInput)
+        {
+            case 999: // X 341 682 Y 200 400/
+                    if(recvMsg.pressed==1)
+                { 
+                     if(0 < recvMsg.x && recvMsg.x  < 512 && 300<recvMsg.y && recvMsg.y<500)
+                    {
+						soccergame();
+                    }
+                      if(512 <recvMsg.x && recvMsg.x < 1024 && 300 <recvMsg.y && recvMsg.y < 500)
+                    {
+						backtothemain();
+                    }
+                }
+break;
+    }
+	}
+}
+
+
+
 /*--------------------------------------------------------------------
 
 사용자 공 선택 함수
@@ -512,181 +540,138 @@ int select_ball_func (void)
    
 	accInit(); // 가속도 센서 활성화 
 	ledlibinit();
+	
     int accel;
 	int ball_num ; // 사용자가 선택한 장소에 따라 번호 메기기
 	
-	BUTTON_MSG_T B;
+	TOUCH_MSG_T recvMsg;
 	int returnValue = 0;
 	
-	int msgID2 = msgget (1123, IPC_CREAT|0666);
+	int msgID = msgget (1122, IPC_CREAT|0666);
 
-
-	
-	if (msgID2 == -1){
+	if (msgID == -1){
 	printf ("Cannot get msgQueueID, Return!\r\n");
 	return -1;
 	}
-	printf("버튼 초기화 직전");
-	buttonInit();
-    printf ("while문이 돌지 않으면 여기서 멈춤");
+
 	
 	while(1)
 	{	
 		accel = getAcc(); // 가속도 값 1초에 한 번씩 받아오기
-		printf("accel: %d", accel);
-		returnValue = msgrcv(msgID2, &B, sizeof(unsigned short)*2 + sizeof(int), 0, 0);
+		//printf("accel: %d", accel);
+		msgrcv(msgID, &recvMsg, sizeof(TOUCH_MSG_T)- sizeof(long int), 0, 0);
 		//printf("%d/n", returnValue);
 
-        /*키트를 움직여서 공위치 선택*/
-        /*if(accel <= -10000)
-        {   
-		    bitmainfunc("soccerball_left.bmp");
-            printf(" accel : %d", accel);
-	        ball_num = 1;
-          	sleep(1);
-			if (B.messageNum == EV_KEY && B.keyInput == KEY_VOLUMEDOWN && B.pressed == 1)
-			{	
-				bitmainfunc("newball_left.bmp");
-           					printf(" accel : %d", accel);
-							ball_num = 1;
-          					sleep(1);
-			}
-		}
-		else if(accel >= -10000 && accel <= 10000)
-		{
-			bitmainfunc("soccerball_center.bmp");
-            printf(" accel : %d", accel);
-			ball_num = 2;
-        	sleep(1);
-			if (B.messageNum == EV_KEY && B.keyInput == KEY_VOLUMEDOWN && B.pressed == 1)
-			{	
-				bitmainfunc("newball_center.bmp");
-           					printf(" accel : %d", accel);
-							ball_num = 2;
-          					sleep(1);
-			}
-		}
-		else if(accel >= 10000)
-		{
-			bitmainfunc("soccerball_right.bmp");
-            printf(" accel : %d", accel);
-			ball_num = 3;
-            sleep(1);
-			if (B.messageNum == EV_KEY && B.keyInput == KEY_VOLUMEDOWN && B.pressed == 1)
-			{	
-				bitmainfunc("newball_right.bmp");
-           					printf(" accel : %d", accel);
-							ball_num = 3;
-          					sleep(1);
-			}
-        }*/
-
-        /*원하는 위치에 공이 있으면 키를 선택해서 그 위치 고정*/
-		if (B.messageNum == EV_KEY && B.keyInput == KEY_VOLUMEDOWN && B.pressed == 1)
-		{
+		switch (recvMsg.keyInput)
+        {
+            case 999: 
+            if(recvMsg.pressed==1)
+            { 
+                if((0 < recvMsg.x) && (recvMsg.x  < 1024) && (0<recvMsg.y) && (recvMsg.y<600))  
+					{
 						if(accel <= -10000)
 						{   
 							bitmainfunc("newball_left.bmp");
            					printf(" accel : %d", accel);
 							ball_num = 1;
-          				
+							sleep(1);
 						}
 						else if(accel >= -10000 && accel <= 10000)
 						{
-							bitmainfunc("newball_center.bmp");
-            				printf(" accel : %d", accel);
-							ball_num = 2;
-        					
+                        printf(" accel : %d", accel);
+							ball_num = 2;						
+                        bitmainfunc("newball_center.bmp");
+						sleep(1);
+ 
 						}
 						else if (accel >= 10000)
 						{
 							bitmainfunc("newball_right.bmp");
             				printf(" accel : %d", accel);
 							ball_num = 3;
-            				
-						}
+							sleep(1);
+						}   
+						
+                    }
+
+
+
+
 					}
-			
-		
+					break;
+
+		}
 	
 		
-		/*while (B.messageNum == EV_KEY && B.keyInput == KEY_VOLUMEDOWN && B.pressed) // 버튼이 눌릴 동안 동작
-		{		
-			if(accel <= -10000)
-			{   
-				bitmainfunc("soccerball_left.bmp");
-           		printf(" select : %d", accel);
-				ball_num = 1;
-          		sleep(1);
-			}
-			else if(accel >= -10000 && accel <= 10000)
-			{
-				bitmainfunc("soccerball_center.bmp");
-            	printf(" select : %d", accel);
-				ball_num = 2;
-        	sleep(1);
-			}
-			else if (accel >= 10000)
-			{
-				bitmainfunc("soccerball_right.bmp");
-            	printf(" select : %d", accel);
-				ball_num = 3;
-            	sleep(1);
-			}
-			break;
-		}*/
+
+
+        printf("스위치 빠져나온 번호 %d \n", ball_num);
+
+		if( 1<= ball_num && 3>= ball_num ) break;
+		
+		//return ball_num; // 공 번호 반환해 주기
+
+
 	}
-	return ball_num; // 공 번호 반환해 주기
+    printf("final ball num :%d \n", ball_num);
+	return ball_num;
 	
 }
 
 
-
 int soccergame(void)
-{    	
+{   
+	fndDisp(0, 0);
 	bitmainfunc("soccer_start.bmp");
 	text("GAME START", "	");
-
+	int score = 0; // 점수를 저장하는 변수
 	int i;
-
-	for(i=0; i<3; i++) // 3판 돌리기
-	{ 
+		for(i=0 ; i<3 ; i++){
 	 /*----------------------------- 사용자의 최종 위치 받아오기 ---------------------- */
 		int player_num; // 리턴 받을 사용자의 장소 번호
 
 		player_num = select_ball_func(); // 사용자의 장소 최종 위치 불러오기
-    
+		printf("%d\n", player_num);
+		sleep(1);
 	 /*--------------------------- 랜덤한 위치 받아오기 -------------------- */
 		int rand_num; // 랜덤하게 받아올 숫자
 		srand(time(NULL)) ;
 	
 		rand_num =rand() % 3 + 1; // 1, 2, 3 중 랜덤한 값을 무작위로 받아와서 저장하기
 
+		printf("computer_num : %d\n", rand_num);
+		printf("playernim : %d\n", player_num);
 	 /*---------------------------------점수 조정하기-----------------------------------*/
-		int soccerscore = 0; // 점수를 저장하는 변수	
+			
 
-		if (rand_num == player_num) // 게임 결과 비교 (승)
-		{
-			fndDisp (soccerscore + 1, 0); 
-			soccerscore = soccerscore + 1;
-		}
-
-		else if (rand_num != player_num) // 패
+		if (player_num == rand_num) // 게임 결과 비교 (승)
 		{	
-			if (soccerscore >= 1) // 1점 이상 획득했을 때
-			{
-				fndDisp (soccerscore -1, 0);
-				soccerscore = soccerscore - 1;
+			bitmainfunc("Goal.bmp");
+			fnd(MODE_STATIC_DIS,score+1);
+			score = score + 1;
+			printf ("score : %d", score);
+			sleep(1);
 		}
 
-		else if (soccerscore < 1) // 0점일 때 음수로 가는 것을 방지
-		{
-			fndDisp (0, 0);
-			soccerscore = 0;
+		else if (player_num != rand_num) // 패
+		{	
+			
+				bitmainfunc("Fale.bmp");
+				fnd(MODE_STATIC_DIS,score-1);
+				if (score == 0 ) score = 0;
+				else score = score - 1;
+				printf ("score : %d", score);
+				sleep(1);
 		}
+
+
 	}	
 
-}
+	bitmainfunc ("soccer_yesno.bmp");
+	soccerballrestart();
+	
+
+
 	
 
 	text("Finish","	");

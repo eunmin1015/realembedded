@@ -35,7 +35,8 @@ int fd;
 int main(int argc, char* argv[]) {//
    
 	setInit(); //각종 기기들을 키고  초기 설정을 해준다.
-	bitmainfunc("gamestart.bmp"); //메인 메뉴 사진을 띄운다.
+    msgID = msgget (1122, IPC_CREAT | 0666);
+	bitmainfunc("24set.bmp"); //메인 메뉴 사진을 띄운다.
     while(1)
     {
 		msgrcv(msgID, &recvMsg, sizeof(TOUCH_MSG_T)- sizeof(long int), 0, 0);
@@ -45,15 +46,15 @@ int main(int argc, char* argv[]) {//
             case 999: // X 341 682 Y 200 400/
                     if(recvMsg.pressed==1)
                 { 
-                    if(450 < recvMsg.x && recvMsg.x  < 520 && 200<recvMsg.y && recvMsg.y<430)
+                    if(0 < recvMsg.x && recvMsg.x  < 512 && 300<recvMsg.y && recvMsg.y<500)
                     {
-						bitmainfunc("gamestart.bmp");
+						bitmainfunc("24set.bmp");
                         baseballgame();
                     }
-                      if(530 <recvMsg.x && recvMsg.x < 1024 && 200 <recvMsg.y && recvMsg.y < 430)
+                      if(512 <recvMsg.x && recvMsg.x < 1024 && 300 <recvMsg.y && recvMsg.y < 500)
                     {
-                          bitmainfunc("gamestart.bmp");
-                        select_ball_func();
+                          bitmainfunc("24set.bmp");
+                        soccergame();
                     }
                 }
 break;
@@ -61,3 +62,4 @@ break;
 	}
 return 0;
 }
+
