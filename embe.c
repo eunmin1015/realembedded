@@ -102,6 +102,24 @@ int baseballgame(void){
 		}
 	}
 	
+		int statement0 =0;
+		int statement1 =0;
+		int statement2 =0;
+		int statement3 =0;
+		int statement4 =0;
+		int statement5 =0;
+		int statement6 =0;
+		int statement7 =0;
+		int statement8 =0;
+		int statement9 =0;
+		
+
+
+
+
+
+
+
    
     msgrcv(msgID, &recvMsg, sizeof(TOUCH_MSG_T)- sizeof(long int), 0, 0);
 
@@ -112,57 +130,174 @@ int baseballgame(void){
             case 999: 
                     if(recvMsg.pressed==1)
                 { 
-                    if(730 < recvMsg.x && recvMsg.x  < 755 && 480<recvMsg.y && recvMsg.y<515)
+                    if((730 < recvMsg.x) && (recvMsg.x  < 755) && (480<recvMsg.y) && (recvMsg.y<515) && statement0!=1)
                     {
+
+						int statement0 =1;
+	        			int statement1 =0;
+						int statement2 =0;
+						int statement3 =0;
+						int statement4 =0;
+						int statement5 =0;
+						int statement6 =0;
+						int statement7 =0;
+						int statement8 =0;
+						int statement9 =0;
+
 						bitmainfunc("Keypad.bmp");
                         userBall[k] = 0;
                     }
-                    else if (555 < recvMsg.x && recvMsg.x  < 585 && 60<recvMsg.y && recvMsg.y<110)
-                    {
+                    else if ((555 < recvMsg.x) && (recvMsg.x  < 585) && (60<recvMsg.y) && (recvMsg.y<110) && statement1!=1)
+                     {
+						int statement0 =0;
+	        			int statement1 =1;
+						int statement2 =0;
+						int statement3 =0;
+						int statement4 =0;
+						int statement5 =0;
+						int statement6 =0;
+						int statement7 =0;
+						int statement8 =0;
+						int statement9 =0;
+
 						bitmainfunc("Keypad.bmp");
 						userBall[k] = 1;
 					}
-                    else if (715 < recvMsg.x && recvMsg.x  < 755 && 60<recvMsg.y && recvMsg.y<110)
+                    else if ((715 < recvMsg.x) && (recvMsg.x  < 755) && (60<recvMsg.y) && (recvMsg.y<110) && statement2!=1)
                     {
+
+						int statement0 =0;
+	        			int statement1 =0;
+						int statement2 =1;
+						int statement3 =0;
+						int statement4 =0;
+						int statement5 =0;
+						int statement6 =0;
+						int statement7 =0;
+						int statement8 =0;
+						int statement9 =0;
+
+
 						bitmainfunc("Keypad.bmp");
 						userBall[k] = 2;
 					}
-					else if (880 < recvMsg.x && recvMsg.x  < 920 && 60<recvMsg.y && recvMsg.y<110)
+					else if ((880 < recvMsg.x) &&( recvMsg.x  < 920) && (60<recvMsg.y )&& (recvMsg.y<110) && statement3!=1)
                     {
+						int statement0 =0;
+	        			int statement1 =0;
+						int statement2 =0;
+						int statement3 =1;
+						int statement4 =0;
+						int statement5 =0;
+						int statement6 =0;
+						int statement7 =0;
+						int statement8 =0;
+						int statement9 =0;
+
 						bitmainfunc("Keypad.bmp");
 						userBall[k] = 3;
 					}
-                    else if (550 < recvMsg.x && recvMsg.x  < 590 && 200<recvMsg.y && recvMsg.y<240)
+                    else if ((550 < recvMsg.x) && (recvMsg.x  < 590) && (200<recvMsg.y) && (recvMsg.y<240) && statement4!=1)
                     {
+
+						int statement0 =0;
+	        			int statement1 =0;
+						int statement2 =0;
+						int statement3 =0;
+						int statement4 =1;
+						int statement5 =0;
+						int statement6 =0;
+						int statement7 =0;
+						int statement8 =0;
+						int statement9 =0;
+
 						bitmainfunc("Keypad.bmp");
 						userBall[k] = 4;
 					}
-                    else if (720 < recvMsg.x && recvMsg.x  < 750 && 200<recvMsg.y && recvMsg.y<240)
+                    else if ((720 < recvMsg.x) && (recvMsg.x  < 750) && (200<recvMsg.y) && (recvMsg.y<240) && statement5 !=1)
                     {
+
+						int statement0 =0;
+	        			int statement1 =0;
+						int statement2 =0;
+						int statement3 =1;
+						int statement4 =0;
+						int statement5 =1;
+						int statement6 =0;
+						int statement7 =0;
+						int statement8 =0;
+						int statement9 =0;						
 						bitmainfunc("Keypad.bmp");
 						userBall[k] = 5;
 					}
-                    else if (895 < recvMsg.x && recvMsg.x  < 945 && 200<recvMsg.y && recvMsg.y<240)
+                    else if ((895 < recvMsg.x) &&( recvMsg.x  < 945) && (200<recvMsg.y )&& (recvMsg.y<240) &&statement6!=1)
                     {
+
+						int statement0 =0;
+	        			int statement1 =0;
+						int statement2 =0;
+						int statement3 =0;
+						int statement4 =0;
+						int statement5 =0;
+						int statement6 =1;
+						int statement7 =0;
+						int statement8 =0;
+						int statement9 =0;	
+
 						bitmainfunc("Keypad.bmp");
 						userBall[k] = 6;
 					}
-                    else if (555 < recvMsg.x && recvMsg.x  < 585 && 330<recvMsg.y && recvMsg.y<370)
+                    else if ((555 < recvMsg.x) && (recvMsg.x  < 585) && (330<recvMsg.y) && (recvMsg.y<370) && statement7!=1)
                     {
+
+						int statement0 =0;
+	        			int statement1 =0;
+						int statement2 =0;
+						int statement3 =0;
+						int statement4 =0;
+						int statement5 =0;
+						int statement6 =0;
+						int statement7 =1;
+						int statement8 =0;
+						int statement9 =0;
+
 						bitmainfunc("Keypad.bmp");
 						userBall[k] = 7;
 					}
-                    else if (720 < recvMsg.x && recvMsg.x  < 790 && 330<recvMsg.y && recvMsg.y<370)
+                    else if ((720 < recvMsg.x) && (recvMsg.x  < 790) && (330<recvMsg.y) && (recvMsg.y<370) &&statement8!=1)
                     {
+
+						int statement0 =0;
+	        			int statement1 =0;
+						int statement2 =0;
+						int statement3 =0;
+						int statement4 =0;
+						int statement5 =0;
+						int statement6 =0;
+						int statement7 =0;
+						int statement8 =1;
+						int statement9 =0;
+
 						bitmainfunc("Keypad.bmp");
 						userBall[k] = 8;
 					}
-					else if (880 < recvMsg.x && recvMsg.x  < 950 && 330<recvMsg.y && recvMsg.y<370)
+					else if ((880 < recvMsg.x ) && (recvMsg.x  < 950) && (330<recvMsg.y) && (recvMsg.y<370) &&statement9!=1)
                     {
+						int statement0 =0;
+	        			int statement1 =0;
+						int statement2 =0;
+						int statement3 =0;
+						int statement4 =0;
+						int statement5 =0;
+						int statement6 =0;
+						int statement7 =0;
+						int statement8 =0;
+						int statement9 =1;
+
 						bitmainfunc("Keypad.bmp");
 						userBall[k] = 9;
 					}
-                    
+                    //else범위 아무것도 아니면 그냥 현재 상태 유지해라.
                 }
 break;
     }
