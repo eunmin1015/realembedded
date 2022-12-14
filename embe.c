@@ -383,6 +383,31 @@ int select_ball_func (void)
 		accel = getAcc(); // 가속도 값 1초에 한 번씩 받아오기
 		printf("accel: %d", accel);
 		sleep(1);
+
+        /*키트를 움직여서 공위치 선택*/
+        if(accel <= -10000)
+        {   
+		                  bitmainfunc("soccerball_left.bmp");
+                         printf(" accel : %d", accel);
+	               		 ball_num = 1;
+          	               sleep(1);
+		}
+		else if(accel >= -10000 && accel <= 10000)
+		{
+							bitmainfunc("soccerball_center.bmp");
+            				printf(" accel : %d", accel);
+							ball_num = 2;
+        					sleep(1);
+		}
+		else if(accel >= 10000)
+		{
+							bitmainfunc("soccerball_right.bmp");
+            				printf(" accel : %d", accel);
+							ball_num = 3;
+            				sleep(1);
+        }
+
+        /*원하는 위치에 공이 있으면 키를 선택해서 그 위치 고정*/
 		if (B.messageNum == EV_KEY){
 			switch(B.keyInput)
 			{
@@ -394,21 +419,21 @@ int select_ball_func (void)
         				sleep(1);
 						if(accel <= -10000)
 						{   
-							bitmainfunc("soccerball_left.bmp");
+							bitmainfunc("newball_left.bmp");
            					printf(" accel : %d", accel);
 							ball_num = 1;
           					sleep(1);
 						}
 						else if(accel >= -10000 && accel <= 10000)
 						{
-							bitmainfunc("soccerball_center.bmp");
+							bitmainfunc("newball_center.bmp");
             				printf(" accel : %d", accel);
 							ball_num = 2;
         					sleep(1);
 						}
 						else if (accel >= 10000)
 						{
-							bitmainfunc("soccerball_right.bmp");
+							bitmainfunc("newball_right.bmp");
             				printf(" accel : %d", accel);
 							ball_num = 3;
             				sleep(1);
