@@ -26,19 +26,19 @@ int ledonoff(int lednum, int onoff)
 
 int ledalloff(void)
 {
-	ledonoff(0,0);
-	ledonoff(1,0);
-	ledonoff(2,0);
-	ledonoff(3,0);
-	ledonoff(4,0);
-	ledonoff(5,0);
-	ledonoff(6,0);
-	ledonoff(7,0);
+	ledonoff(0,0);  //다 꺼진 상태
+	ledonoff(1,0);  //led1 on
+	ledonoff(2,0);  //led2 on
+	ledonoff(3,0);  //led3 on
+	ledonoff(4,0);  //led4 on
+	ledonoff(5,0);  //led5 on
+	ledonoff(6,0);  //led6 on
+	ledonoff(7,0);  //led7 on
 }
 
-int led0s1b(void)
+int led0s1b(void)    
 {
-	ledonoff(4,1);
+	ledonoff(4,1); 
 		sleep(2);
 }
 
@@ -53,13 +53,14 @@ int led0s3b(void)
 {
 	ledonoff(4,1);
 	ledonoff(5,1);
-	ledonoff(6,1);	sleep(2);
+	ledonoff(6,1);	
+        sleep(2);
 }
 
 int led1s0b(void)
 {
 	ledonoff(0,1);
-		sleep(2);
+		 sleep(2);
 }
 
 int led1s1b(void)
