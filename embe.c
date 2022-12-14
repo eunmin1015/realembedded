@@ -361,9 +361,6 @@ int select_ball_func (void)
 	
 	BUTTON_MSG_T B;
 	int returnValue = 0;
-	printf("hello");
-	
-	sleep(1);
 	
 	int msgID2 = msgget (1123, IPC_CREAT|0666);
 
@@ -373,75 +370,89 @@ int select_ball_func (void)
 	printf ("Cannot get msgQueueID, Return!\r\n");
 	return -1;
 	}
-
+	printf("버튼 초기화 직전");
 	buttonInit();
+    printf ("while문이 돌지 않으면 여기서 멈춤");
 	
 	while(1)
-	{
-		returnValue = msgrcv(msgID2, &B, sizeof(unsigned short)*2 + sizeof(int), 0, 0);
-		printf("%d/n", returnValue);
+	{	
 		accel = getAcc(); // 가속도 값 1초에 한 번씩 받아오기
 		printf("accel: %d", accel);
-		sleep(1);
+		returnValue = msgrcv(msgID2, &B, sizeof(unsigned short)*2 + sizeof(int), 0, 0);
+		//printf("%d/n", returnValue);
 
         /*키트를 움직여서 공위치 선택*/
-        if(accel <= -10000)
+        /*if(accel <= -10000)
         {   
-		                  bitmainfunc("soccerball_left.bmp");
-                         printf(" accel : %d", accel);
-	               		 ball_num = 1;
-          	               sleep(1);
+		    bitmainfunc("soccerball_left.bmp");
+            printf(" accel : %d", accel);
+	        ball_num = 1;
+          	sleep(1);
+			if (B.messageNum == EV_KEY && B.keyInput == KEY_VOLUMEDOWN && B.pressed == 1)
+			{	
+				bitmainfunc("newball_left.bmp");
+           					printf(" accel : %d", accel);
+							ball_num = 1;
+          					sleep(1);
+			}
 		}
 		else if(accel >= -10000 && accel <= 10000)
 		{
-							bitmainfunc("soccerball_center.bmp");
-            				printf(" accel : %d", accel);
+			bitmainfunc("soccerball_center.bmp");
+            printf(" accel : %d", accel);
+			ball_num = 2;
+        	sleep(1);
+			if (B.messageNum == EV_KEY && B.keyInput == KEY_VOLUMEDOWN && B.pressed == 1)
+			{	
+				bitmainfunc("newball_center.bmp");
+           					printf(" accel : %d", accel);
 							ball_num = 2;
-        					sleep(1);
+          					sleep(1);
+			}
 		}
 		else if(accel >= 10000)
 		{
-							bitmainfunc("soccerball_right.bmp");
-            				printf(" accel : %d", accel);
+			bitmainfunc("soccerball_right.bmp");
+            printf(" accel : %d", accel);
+			ball_num = 3;
+            sleep(1);
+			if (B.messageNum == EV_KEY && B.keyInput == KEY_VOLUMEDOWN && B.pressed == 1)
+			{	
+				bitmainfunc("newball_right.bmp");
+           					printf(" accel : %d", accel);
 							ball_num = 3;
-            				sleep(1);
-        }
+          					sleep(1);
+			}
+        }*/
 
         /*원하는 위치에 공이 있으면 키를 선택해서 그 위치 고정*/
-		if (B.messageNum == EV_KEY){
-			switch(B.keyInput)
-			{
-				case KEY_VOLUMEDOWN : 
-					if(B.pressed == 1)
-					{
-						ledonoff(1, 1);
-        				printf("%d\n", accel);
-        				sleep(1);
+		if (B.messageNum == EV_KEY && B.keyInput == KEY_VOLUMEDOWN && B.pressed == 1)
+		{
 						if(accel <= -10000)
 						{   
 							bitmainfunc("newball_left.bmp");
            					printf(" accel : %d", accel);
 							ball_num = 1;
-          					sleep(1);
+          				
 						}
 						else if(accel >= -10000 && accel <= 10000)
 						{
 							bitmainfunc("newball_center.bmp");
             				printf(" accel : %d", accel);
 							ball_num = 2;
-        					sleep(1);
+        					
 						}
 						else if (accel >= 10000)
 						{
 							bitmainfunc("newball_right.bmp");
             				printf(" accel : %d", accel);
 							ball_num = 3;
-            				sleep(1);
+            				
 						}
 					}
-			}
-		}
-	} 
+			
+		
+	
 		
 		/*while (B.messageNum == EV_KEY && B.keyInput == KEY_VOLUMEDOWN && B.pressed) // 버튼이 눌릴 동안 동작
 		{		
@@ -468,7 +479,9 @@ int select_ball_func (void)
 			}
 			break;
 		}*/
+	}
 	return ball_num; // 공 번호 반환해 주기
+	
 }
 
 

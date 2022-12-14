@@ -34,8 +34,8 @@ int probeButtonPath(char *newPath){
 	
 	if ((returnValue == 1) && (strncasecmp(tmpStr, HAVE_TO_FIND_2, strlen(HAVE_TO_FIND_2)) == 0) )
 	{
-	printf ("-->%s",tmpStr);
-	printf("\t%c\r\n",tmpStr[strlen(tmpStr)-3]);
+	//printf ("-->%s",tmpStr);
+	//printf("\t%c\r\n",tmpStr[strlen(tmpStr)-3]);
 	number = tmpStr[strlen(tmpStr)-3] - '0';
 	//Ascii character '0'-'9' (0x30-0x39)
 	//to interger(0)
@@ -77,6 +77,11 @@ int buttonInit(void){
 	return 0;
 	fd=open (buttonPath, O_RDONLY);
     msgID2 = msgget (MESSAGE_ID, IPC_CREAT|0666);
+    BUTTON_MSG_T trashcan;    
+    while(msgrcv (msgID2, &trashcan, sizeof(BUTTON_MSG_T) - sizeof(long int),0,IPC_NOWAIT) >= 0)
+            { 
+               printf("cleaning message" );
+                } 
     pthread_create(&buttonTh_id, NULL, buttonThFunc, NULL);
     A.messageNum = 1;
 	return 1;
