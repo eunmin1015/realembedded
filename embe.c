@@ -26,7 +26,7 @@
 #include "bitmap.h"
 #include "embe.h"
 
-#define MODE_COUNT_DIS "c"
+#define MODE_COUNT_DIS "c"  //fnd 선언을 위한
 
 BUTTON_MSG_T B;
 TOUCH_MSG_T recvMsg;
@@ -46,16 +46,16 @@ int setInit(void){
 	text("Embedded System", "TEAM PROJECT");
 	sleep(1);
 	
-	fnd(000000,MODE_STATIC_DIS );
+	fnd(000000,MODE_STATIC_DIS );   //fnd 초기 설정 
 	
 	int ondo = 0;
 	ondo = getTem() - 5;
 	char temperature[20];
-	sprintf(temperature, "temperature : %d", ondo);
+	sprintf(temperature, "temperature : %d", ondo); 
    //온도를 읽어오고 textlcd 에 띄우기 위해서 문자열 저장
    
 	if(ondo < 20) 
-		{ bitmainfunc("COld.bmp"); text(temperature, "COLD TO WORK");}
+		{ bitmainfunc("COld.bmp"); text(temperature, "COLD TO WORK");}  
 	else if(ondo >= 20 && ondo < 26)
 		{bitmainfunc("Good.bmp"); text(temperature, "GOOD TO WORK!");}
 	else 
@@ -79,7 +79,7 @@ int setExit(void){
 	
 
 
-int backtothemain(void)
+int backtothemain(void)               //게임 하고 나서 다시 메인으로 돌아가는 함수
 {
 	setInit(); //각종 기기들을 키고  초기 설정을 해준다.
 	bitmainfunc("24set.bmp"); //메인 메뉴 사진을 띄운다.
@@ -90,14 +90,14 @@ int backtothemain(void)
         switch (recvMsg.keyInput)
         {
             case 999: // X 341 682 Y 200 400/
-                    if(recvMsg.pressed==1)
+                    if(recvMsg.pressed==1)     
                 { 
-                    if(0 < recvMsg.x && recvMsg.x  < 512 && 300<recvMsg.y && recvMsg.y<500)
+                    if(0 < recvMsg.x && recvMsg.x  < 512 && 300<recvMsg.y && recvMsg.y<500)   //화면의 왼쪽(yes)을 누르면 야구게임 재실행
                     {
 						bitmainfunc("24set.bmp");
                         baseballgame();
                     }
-                      if(512 <recvMsg.x && recvMsg.x < 1024 && 300 <recvMsg.y && recvMsg.y < 500)
+                      if(512 <recvMsg.x && recvMsg.x < 1024 && 300 <recvMsg.y && recvMsg.y < 500) //화면의 오른쪽(no)을 선택하면 선택창 뜨기
                     {
                           bitmainfunc("24set.bmp");
                         soccergame();
@@ -108,30 +108,30 @@ break;
 	}
 }
 
-int userBallclear(void)
+int userBallclear(void)    //유저볼 들어오는 배열을 0으로 초기화 해주기.
 {
 	userBall[0] = 0;
 	userBall[1] = 0;
 	userBall[2] = 0;
 }
 
-int baseballrestart(void)
+int baseballrestart(void)  //야구게임을 재시작
 {
 	
 	    while(1)
     {
-		msgrcv(msgID, &recvMsg, sizeof(TOUCH_MSG_T)- sizeof(long int), 0, 0);
+		msgrcv(msgID, &recvMsg, sizeof(TOUCH_MSG_T)- sizeof(long int), 0, 0);   //msgrcv 메세지 인자를 받는다??
          
         switch (recvMsg.keyInput)
         {
             case 999: // X 341 682 Y 200 400/
-                    if(recvMsg.pressed==1)
+                    if(recvMsg.pressed==1)        
                 { 
-                     if(0 < recvMsg.x && recvMsg.x  < 512 && 300<recvMsg.y && recvMsg.y<500)
+                     if(0 < recvMsg.x && recvMsg.x  < 512 && 300<recvMsg.y && recvMsg.y<500)   //야구게임 재시작에 yes를 누른 경우
                     {
 						baseballgame();
                     }
-                      if(512 <recvMsg.x && recvMsg.x < 1024 && 300 <recvMsg.y && recvMsg.y < 500)
+                      if(512 <recvMsg.x && recvMsg.x < 1024 && 300 <recvMsg.y && recvMsg.y < 500) // 야구게임 재시작에 NO를 누른 경우
                     {
 						backtothemain();
                     }
@@ -141,50 +141,50 @@ break;
 	}
 }
 
-int userBallarrinput(int a)
+int userBallarrinput(int a)  //유저볼배열(
 {
 	
-	if(userBall[0] == 0)
+	if(userBall[0] == 0)                              //유저볼 배열[0]에 0이 들어가면 
 	{
-		userBall[0] = a;
+		userBall[0] = a;                              //a를 userball[0]에 넣어 (0으로 초기화 되면 값이 들어오는 형태)
 	}
-	else if (userBall[0] != 0 && userBall[1] == 0)
+	else if (userBall[0] != 0 && userBall[1] == 0)   // userball[0]이 0이 아니고 userball[1]이 0이라면 
 	{
-		userBall[1] = a;
+		userBall[1] = a;                              //userball[1]에 a를  넣어라
 	}
-	else if(userBall[0] != 0 && userBall[1] != 0 && userBall[2] == 0)
+	else if(userBall[0] != 0 && userBall[1] != 0 && userBall[2] == 0)   // userball[0]이 0이 아니고 userball[1]이 0이 아니고 userball[2]가 0이라면 
 	{
-		userBall[2] = a;
+		userBall[2] = a;                                                    //userball[2]에 a를 넣어라 
 	}
 	else
 	{
 		printf("입력이 완료되었습니다");
-		printf("배열 -> %d %d %d",userBall[0],userBall[1],userBall[2]);
+		printf("배열 -> %d %d %d",userBall[0],userBall[1],userBall[2]);     //그러면 값이 배열에 다 들어옴
 		return 1;
 	}
 }
 
 
-int userballinsert(void)
+int userballinsert(void)                     // 배열에 값을 넣어줄 조건을 여기서 작성 
 {
-		int cnt = 0;
+		int cnt = 0;                          //cnt=0으로 만들어줌 . 수를 3개 받으니까
 	
 	while(1){
-		  msgrcv(msgID, &recvMsg, sizeof(TOUCH_MSG_T)- sizeof(long int), 0, 0);
+		  msgrcv(msgID, &recvMsg, sizeof(TOUCH_MSG_T)- sizeof(long int), 0, 0);  
 		        switch (recvMsg.keyInput)
         {
             case 999: 
                     if(recvMsg.pressed==1)
                 { 
-                    if((0 < recvMsg.x) && (recvMsg.x  < 320) && (0<recvMsg.y) && (recvMsg.y<200))  //1
+                    if((0 < recvMsg.x) && (recvMsg.x  < 320) && (0<recvMsg.y) && (recvMsg.y<200))          //1이 되는 벙위
 					{
 						
-						bitmainfunc("Keypad2.bmp");
-						userBallarrinput(1);
-						cnt++;
+						bitmainfunc("Keypad2.bmp");                                                           //눌러도 사진이 계속 뜨도록
+						userBallarrinput(1);                                                                  //usrballinput배열에 1을 넣어라
+						cnt++;                                                                                // cnt를 하나 증가(3까지만 받게 하려고 아래조건)                              
 						continue;
                     }
-                    else if((320 < recvMsg.x )&& (recvMsg.x  < 671) && (0<recvMsg.y )&& (recvMsg.y<200) )
+                    else if((320 < recvMsg.x )&& (recvMsg.x  < 671) && (0<recvMsg.y )&& (recvMsg.y<200) )   //2이 되는 벙위
                      {
 						
 						bitmainfunc("Keypad2.bmp");
@@ -194,7 +194,7 @@ int userballinsert(void)
 					}
 
 
-                    else if ((671 < recvMsg.x) && (recvMsg.x  < 1024) && (0<recvMsg.y) && (recvMsg.y<200) )
+                    else if ((671 < recvMsg.x) && (recvMsg.x  < 1024) && (0<recvMsg.y) && (recvMsg.y<200) )  //3이 되는 벙위
                     {
 						
 						bitmainfunc("Keypad2.bmp");
@@ -203,7 +203,7 @@ int userballinsert(void)
 						continue;
 					}
 
-					else if ((0 < recvMsg.x) && (recvMsg.x  < 320) && (200<recvMsg.y )&& (recvMsg.y<400))
+					else if ((0 < recvMsg.x) && (recvMsg.x  < 320) && (200<recvMsg.y )&& (recvMsg.y<400))      //4이 되는 벙위
 
                     {
 						
@@ -213,7 +213,7 @@ int userballinsert(void)
 						continue;
 					}
 
-                    else if ((320 < recvMsg.x )&& (recvMsg.x  < 671) && (200<recvMsg.y) && (recvMsg.y<400))
+                    else if ((320 < recvMsg.x )&& (recvMsg.x  < 671) && (200<recvMsg.y) && (recvMsg.y<400))  //5이 되는 범위
 
                     {
 						
@@ -222,7 +222,7 @@ int userballinsert(void)
 						cnt++;
 						continue;
 					}
-                    else if ((671 < recvMsg.x) && (recvMsg.x  < 1024)&& (200<recvMsg.y) && (recvMsg.y<400) ) //6
+                    else if ((671 < recvMsg.x) && (recvMsg.x  < 1024)&& (200<recvMsg.y) && (recvMsg.y<400) ) //6이 되는 범위
                     {
 						
 						bitmainfunc("Keypad2.bmp");
@@ -230,7 +230,7 @@ int userballinsert(void)
 						cnt++;
 						continue;
 					}
-                    else if ((0 < recvMsg.x) && (recvMsg.x  < 320) && (400<recvMsg.y )&& (recvMsg.y<600))
+                    else if ((0 < recvMsg.x) && (recvMsg.x  < 320) && (400<recvMsg.y )&& (recvMsg.y<600))    //7이 되는 범위
 
                     {
 						
@@ -241,7 +241,7 @@ int userballinsert(void)
 					}
 
 
-                    else if ((320 < recvMsg.x )&& (recvMsg.x  < 671)&& (400<recvMsg.y) && (recvMsg.y<600))
+                    else if ((320 < recvMsg.x )&& (recvMsg.x  < 671)&& (400<recvMsg.y) && (recvMsg.y<600))   //8이 되는 범위
                     {
 						
 						bitmainfunc("Keypad2.bmp");
@@ -250,7 +250,7 @@ int userballinsert(void)
 						continue;
 					}
 
-                    else if ((671 < recvMsg.x) && (recvMsg.x  < 1024) && (400<recvMsg.y) && (recvMsg.y<600))
+                    else if ((671 < recvMsg.x) && (recvMsg.x  < 1024) && (400<recvMsg.y) && (recvMsg.y<600))  //9가 되는 범위
 
                     {
 						
@@ -262,7 +262,7 @@ int userballinsert(void)
 				
 break;
     }
-    	if(cnt == 3)
+    	if(cnt == 3)      //cnt가 3이라면 나가
     	return 0;
 }
 }
@@ -296,16 +296,16 @@ int baseballgame(void){
 		
 	while (1) // 숫자야구 게임 시작 
 
-  	{ 	bitmainfunc("Keypad2.bmp");
+  	{ 	bitmainfunc("Keypad2.bmp");        //키패드를 올리고 
 		text("inning start!", "   ");
 		fnd(MODE_STATIC_DIS,count+1);	
     	printf("[%d회차 숫자야구]\n", count); 
     	userBallclear();
     	//ledonoff(count-1,1);
-    	ledalloff();
+    	ledalloff();                      //led를 전부 off
 		printf("computer num -> %d,%d,%d\n",computerBall[0],computerBall[1],computerBall[2]);
 		
-		userballinsert();
+		userballinsert();                 //우리가 눌러서 배열에 값을 넣어준 함수
     	printf("user num -> %d,%d,%d\n",userBall[0],userBall[1],userBall[2]);
     	
 
@@ -313,12 +313,12 @@ int baseballgame(void){
     	{
 			text("inning start!", "insert num");
 			
-	printf("저장된 숫자 %d %d %d", userBall[0],userBall[1],userBall[2]);
+	printf("저장된 숫자 %d %d %d", userBall[0],userBall[1],userBall[2]); 
 	
 
-if(userBall[0] == userBall[1] || userBall[0] == userBall[2] || userBall[1] == userBall[2]) 
+if(userBall[0] == userBall[1] || userBall[0] == userBall[2] || userBall[1] == userBall[2])    
 
-{ // 입력한 숫자 중에 중복된 게 있으면 다시 입력받도록 
+{ // 입력한 숫자 중에 중복된 게 있으면 다시 입력받도록 + 부저 
 
 printf("중복된 숫자를 입력하시면 안됩니다.\n"); 
 			buzzerPlaySong(musicScale[4]);
@@ -348,10 +348,10 @@ printf("중복된 숫자를 입력하시면 안됩니다.\n");
 				usleep(500000);
 				pwmSetPercent(0,0);
 				pwmSetPercent(100,1);
-				pwmSetPercent(100,2);
+				pwmSetPercent(100,2);  
 				baseballgame();
 
-break;
+break;                     
 } 
 
 break; // 아무 문제 없을 경우 반복 종료 
@@ -370,7 +370,7 @@ break; // 아무 문제 없을 경우 반복 종료
 
   printf("[결과]스트라이크 : %d, 볼 : %d\n\n", strike, ball); //
   
-  if(count == 8) // 만약 9회차인데도 승리하지 못하면 패배 
+  if(count == 8) // 만약 9회차인데도 승리하지 못하면 패배 +부저 
 
 { 
 				buzzerPlaySong(musicScale[7]);
@@ -398,16 +398,16 @@ baseballrestart();
 break; 
 
 }
-  
-  else if(strike == 0 && ball == 0)
+  /*----------S 와 B 의 조건을 나눠줌 ------ -*/
+  else if(strike == 0 && ball == 0)        //S 와 B가 모두 0일 때
   {
-	 ledalloff();
+	 ledalloff();                          //led 전부를 off
   }
   
-  else if (strike == 0 && ball == 1)
+  else if (strike == 0 && ball == 1)       //S가 0  B가 1일 때
   {
-	  ledalloff();
-	  led0s1b();
+	  ledalloff();                         //led 전부를 off (시작을 깔끔하게)
+	  led0s1b();                           //led5 on 
   }
   else if (strike == 0 && ball == 2)
   {
@@ -487,9 +487,9 @@ baseballrestart();
 break; 
 
 } 
-	count++; 
+	count++;                           //count1 증가
 
-bitmainfunc("baseball_yesno.bmp"); 
+bitmainfunc("baseball_yesno.bmp");    //야구를 다시 하시겠습니까??
 
 }
   	return 0;
@@ -557,14 +557,17 @@ int select_ball_func (void)
 	
 	while(1)
 	{	
-		accel = getAcc(); // 가속도 값 1초에 한 번씩 받아오기
+		//accel = getAcc(); // 가속도 값 1초에 한 번씩 받아오기
 		//printf("accel: %d", accel);
 		msgrcv(msgID, &recvMsg, sizeof(TOUCH_MSG_T)- sizeof(long int), 0, 0);
 		//printf("%d/n", returnValue);
 
 		switch (recvMsg.keyInput)
         {
+
+
             case 999: 
+accel = getAcc();
             if(recvMsg.pressed==1)
             { 
                 if((0 < recvMsg.x) && (recvMsg.x  < 1024) && (0<recvMsg.y) && (recvMsg.y<600))  
